@@ -3,17 +3,22 @@ import moment from 'moment';
 import { networkInterfaces } from 'os';
 import getNodeVersion from '../../src/getNodeVersion/index.js';
 console.log('node:', chalk.blue(getNodeVersion()));
+
+let listenList = process.argv.slice(2);
+listenList = listenList.length ? listenList : ['WLAN'];
+
 //获取本机ip
 function getIpAddress() {
   const interfaces = networkInterfaces();
-
   let wlan;
-  if ((wlan = interfaces['以太网']) && Array.isArray(wlan)) {
-    return wlan.filter((w) => w.family === 'IPv4').pop().address;
+
+  for (let i = 0; i < listenList.length; i++) {
+    const key = listenList[i];
+    if ((wlan = interfaces[key]) && Array.isArray(wlan)) {
+      return wlan.filter((w) => w.family === 'IPv4').pop().address;
+    }
   }
-  if ((wlan = interfaces['WLAN']) && Array.isArray(wlan)) {
-    return wlan.filter((w) => w.family === 'IPv4').pop().address;
-  }
+
   return '';
 }
 
