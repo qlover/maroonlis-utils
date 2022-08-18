@@ -7,6 +7,8 @@ console.log('node:', chalk.blue(getNodeVersion()));
 let listenList = process.argv.slice(2);
 listenList = listenList.length ? listenList : ['WLAN'];
 
+console.log(JSON.stringify(interfaces));
+
 //获取本机ip
 function getIpAddress() {
   const interfaces = networkInterfaces();
