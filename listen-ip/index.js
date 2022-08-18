@@ -13,8 +13,11 @@ function getIpAddress() {
 }
 
 let lastIp;
+let timer;
 function begin() {
-  setTimeout(loggerIp, 1000);
+  clearTimeout(timer);
+
+  timer = setTimeout(loggerIp, 1000);
 }
 function loggerIp() {
   const newIp = getIpAddress();
