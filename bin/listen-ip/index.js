@@ -2,11 +2,15 @@ import chalk from 'chalk';
 import moment from 'moment';
 import { networkInterfaces } from 'os';
 import getNodeVersion from '../../src/getNodeVersion/index.js';
-
+console.log('node:', chalk.blue(getNodeVersion()));
 //获取本机ip
 function getIpAddress() {
   const interfaces = networkInterfaces();
+
   let wlan;
+  if ((wlan = interfaces['以太网']) && Array.isArray(wlan)) {
+    return wlan.filter((w) => w.family === 'IPv4').pop().address;
+  }
   if ((wlan = interfaces['WLAN']) && Array.isArray(wlan)) {
     return wlan.filter((w) => w.family === 'IPv4').pop().address;
   }
@@ -30,6 +34,4 @@ function loggerIp() {
   begin();
 }
 
-console.log('node:', chalk.blue(getNodeVersion()));
-
-begin();
+loggerIp();
