@@ -50,7 +50,9 @@ function loggerIp() {
   if (newIp !== lastIp) {
     lastIp = newIp;
     console.log(
-      `[${moment().format('YYYY-MM-DD HH:mm:ss')}]: ${chalk.green(newIp)}`
+      `[${moment().format('YYYY-MM-DD HH:mm:ss')}]: ${chalk.green(
+        'http://' + newIp
+      )}`
     );
   }
 
