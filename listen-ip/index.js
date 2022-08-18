@@ -1,10 +1,10 @@
-const os = require('os');
-const { start } = require('repl');
-// const chalk = require('chalk');
+import chalk from 'chalk';
+import moment from 'moment';
+import { networkInterfaces } from 'os';
 
 //获取本机ip
 function getIpAddress() {
-  const interfaces = os.networkInterfaces();
+  const interfaces = networkInterfaces();
   let wlan;
   if ((wlan = interfaces['WLAN']) && Array.isArray(wlan)) {
     return wlan.filter((w) => w.family === 'IPv4').pop().address;
@@ -20,7 +20,7 @@ function loggerIp() {
   const newIp = getIpAddress();
   if (newIp !== lastIp) {
     lastIp = newIp;
-    console.log(`[${new Date().toLocaleDateString()}]: ${newIp}`);
+    console.log(`[${moment().format('Y-M-D H:m:s')}]: ${chalk.green(newIp)}`);
   }
 
   begin();
