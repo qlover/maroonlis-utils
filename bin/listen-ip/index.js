@@ -17,7 +17,9 @@ function getIpAddress() {
   const interfaces = networkInterfaces();
 
   const logFile = path.join(__dirnameNew, 'interfce.log');
-  truncateSync(logFile);
+  try {
+    truncateSync(logFile);
+  } catch {}
   writeFileSync(
     logFile,
     `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${JSON.stringify(interfaces)}`,
