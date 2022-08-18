@@ -1,17 +1,29 @@
 import chalk from 'chalk';
+import { truncateSync, writeFileSync } from 'fs';
 import moment from 'moment';
 import { networkInterfaces } from 'os';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import getNodeVersion from '../../src/getNodeVersion/index.js';
 console.log('node:', chalk.blue(getNodeVersion()));
+
+const __filenameNew = fileURLToPath(import.meta.url);
+const __dirnameNew = path.dirname(__filenameNew);
 
 let listenList = process.argv.slice(2);
 listenList = listenList.length ? listenList : ['WLAN'];
 
-console.log(JSON.stringify(interfaces));
-
-//获取本机ip
 function getIpAddress() {
   const interfaces = networkInterfaces();
+
+  const logFile = path.join(__dirnameNew, 'interfce.log');
+  truncateSync(logFile);
+  writeFileSync(
+    logFile,
+    `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${JSON.stringify(interfaces)}`,
+    { flag: 'a' }
+  );
+
   let wlan;
 
   for (let i = 0; i < listenList.length; i++) {
@@ -35,7 +47,9 @@ function loggerIp() {
   const newIp = getIpAddress();
   if (newIp !== lastIp) {
     lastIp = newIp;
-    console.log(`[${moment().format('Y-M-D H:m:s')}]: ${chalk.green(newIp)}`);
+    console.log(
+      `[${moment().format('YYYY-MM-DD HH:mm:ss')}]: ${chalk.green(newIp)}`
+    );
   }
 
   begin();
