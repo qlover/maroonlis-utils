@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "listen:ip": "node ./listen-ip/index.js"
+    "listen:ip": "node ./bin/listen-ip/index.js"
   },
   "repository": {
     "type": "git",

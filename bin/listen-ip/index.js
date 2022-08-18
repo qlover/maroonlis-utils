@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import moment from 'moment';
 import { networkInterfaces } from 'os';
+import getNodeVersion from '../../src/getNodeVersion/index.js';
 
 //获取本机ip
 function getIpAddress() {
@@ -28,5 +29,7 @@ function loggerIp() {
 
   begin();
 }
+
+console.log('node:', chalk.blue(getNodeVersion()));
 
 begin();
