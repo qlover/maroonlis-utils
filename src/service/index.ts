@@ -1,6 +1,6 @@
 import asyncSleep from '@/asyncSleep';
 import { isSameNull } from '@/lang';
-import { identity, isNumber } from 'lodash';
+import { cloneDeep, identity, isNumber } from 'lodash';
 
 export type ApiRespone = {
   code?: number;
@@ -63,11 +63,11 @@ export default function createRequest<
 
   async function request<D>(config: C) {
     // 1. config
+    const _config = cloneDeep(config);
+    await configer(_config);
 
     // @ts-expect-error
-    const { delay, mock, filterResponse, ...originConfig } = await configer(
-      config
-    );
+    const { delay, mock, filterResponse } = _config;
 
     // delay
     isNumber(delay) && (await asyncSleep(delay));
@@ -76,11 +76,12 @@ export default function createRequest<
     if (!isSameNull(mock)) {
       return mocker(mock);
     }
+
     // 3. filter response
-    const res = await instancer(config);
+    const res = await instancer(_config);
 
     if (filterResponse) {
-      return await filter(res, config);
+      return await filter(res, _config);
     }
     return res;
   }
