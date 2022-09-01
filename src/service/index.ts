@@ -61,7 +61,7 @@ export default function createRequest<
   const useMocktpl: UseMockerType<any, R> = (func) => (mocker = func);
   const useFilter: UseFilterType<R, C> = (func) => (filter = func);
 
-  async function request<D>(config: C) {
+  async function request(config: C) {
     // 1. config
     const _config = cloneDeep(config);
     await configer(_config);
