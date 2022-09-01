@@ -1,8 +1,16 @@
 {
-  "name": "my-webpack-project",
+  "name": "maroonlis-utils",
   "version": "0.0.1",
-  "description": "My webpack project",
-  "main": "index.js",
+  "description": "maroonlis-utils",
+  "main": "./dist/main.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "utils",
+    "maroonlis"
+  ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
     "build": "webpack --mode=production --node-env=production",
@@ -29,7 +37,7 @@
     "webpack-dev-server": "^4.10.1",
     "workbox-webpack-plugin": "^6.5.4"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
