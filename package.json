@@ -1,9 +1,11 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "maroonlis-utils",
-  "main": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "unpkg": "dist/umd/index.js",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
