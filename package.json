@@ -2,7 +2,7 @@
   "name": "maroonlis-utils",
   "version": "0.0.1",
   "description": "maroonlis-utils",
-  "main": "./dist/index.js",
+  "main": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist"

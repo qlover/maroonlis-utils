@@ -1,6 +1,6 @@
-import asyncSleep from '@/asyncSleep';
-import { isSameNull } from '@/lang';
 import { cloneDeep, identity, isNumber } from 'lodash';
+import asyncSleep from '../asyncSleep';
+import { isSameNull } from '../lang';
 
 export type ApiRespone = {
   code?: number;
