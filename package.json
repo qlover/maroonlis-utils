@@ -3,10 +3,11 @@
   "version": "0.0.10",
   "description": "maroonlis-utils",
   "main": "index.js",
-  "typings": "dist/types/index.d.ts",
+  "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "types"
   ],
   "keywords": [
     "utils",
