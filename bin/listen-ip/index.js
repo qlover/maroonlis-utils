@@ -4,7 +4,7 @@ import moment from 'moment';
 import { networkInterfaces } from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import getNodeVersion from '../../src/getNodeVersion/index.js';
+import getNodeVersion from '../../lib/getNodeVersion/index.js';
 console.log('node:', chalk.blue(getNodeVersion()));
 
 const __filenameNew = fileURLToPath(import.meta.url);
