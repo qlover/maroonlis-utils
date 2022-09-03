@@ -1,7 +1,7 @@
 import asyncSleep from './asyncSleep';
 import service from './service';
 import Store from './Store';
-declare const _default: {
+declare const maroonlisUtils: {
     asyncSleep: typeof asyncSleep;
     service: typeof service;
     Store: typeof Store;
@@ -10,4 +10,4 @@ declare const _default: {
     isNumberWithString(obj: any): obj is number;
     isEmptyPropsValue(value: any): value is "";
 };
-export default _default;
+export default maroonlisUtils;

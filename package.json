@@ -15,7 +15,10 @@
   ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
-    "build": "webpack --mode development",
+    "build:umd": "webpack --mode development --env target=umd",
+    "build:cjs": "webpack --mode development --env target=cjs",
+    "build:esm": "webpack --mode development --env target=esm",
+    "build": "npm run build:umd && npm run build:cjs && npm run build:esm",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },

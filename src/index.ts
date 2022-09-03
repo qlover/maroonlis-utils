@@ -3,9 +3,10 @@ import * as lang from './lang';
 import service from './service';
 import Store from './Store';
 
-export default {
+const maroonlisUtils = {
   ...lang,
   asyncSleep,
   service,
   Store,
 };
+export default maroonlisUtils;
