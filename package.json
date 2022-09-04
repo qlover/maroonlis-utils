@@ -1,6 +1,6 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "maroonlis-utils",
   "main": "lib/index.js",
   "typings": "types/index.d.ts",
