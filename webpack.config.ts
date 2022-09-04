@@ -4,65 +4,8 @@ import * as webpack from 'webpack';
 // import 'webpack-dev-server';
 // const { name } = packagejson;
 
-// const configMap = {
-//   cjs: {
-//     entry: {
-//       index: './src/index.ts',
-//       'asyncSleep/index': './src/asyncSleep/index.ts',
-//       'lang/index': './src/lang/index.ts',
-//       'service/index': './src/service/index.ts',
-//       'Store/index': './src/Store/index.ts',
-//     },
-//     output: {
-//       path: path.resolve(__dirname, 'cjs'),
-//       library: {
-//         name,
-//         type: 'commonjs',
-//       },
-//     },
-//   },
-//   esm: {
-//     entry: {
-//       index: './src/index.ts',
-//       'asyncSleep/index': './src/asyncSleep/index.ts',
-//       'lang/index': './src/lang/index.ts',
-//       'service/index': './src/service/index.ts',
-//       'Store/index': './src/Store/index.ts',
-//     },
-//     output: {
-//       path: path.resolve(__dirname, 'esm'),
-//       filename: 'esm/index.js',
-//       library: {
-//         type: 'module',
-//         export: 'default',
-//       },
-//     },
-//   },
-//   umd: {
-//     entry: './index.js',
-//     output: {
-//       path: path.resolve(__dirname, 'umd'),
-//       filename: 'index.js',
-//       library: {
-//         name,
-//         type: 'umd',
-//       },
-//     },
-//   },
-// };
-
-export default function (env, argv) {
-  console.log('webpack.config.js arguments', env, argv);
-
-  const mode = argv.env.target as 'lib' | 'umd' | 'esm';
-
-  const config: webpack.Configuration = {
-    devtool: 'nosources-source-map',
-    experiments: {
-      outputModule: mode === 'esm',
-    },
-
-    mode: argv.mode,
+const configMap: Record<string, webpack.Configuration> = {
+  cjs: {
     entry: {
       index: './src/index.ts',
       'asyncSleep/index': './src/asyncSleep/index.ts',
@@ -71,12 +14,56 @@ export default function (env, argv) {
       'Store/index': './src/Store/index.ts',
     },
     output: {
-      path: path.resolve(__dirname, 'lib'),
+      path: path.resolve(__dirname, 'cjs'),
+      filename: '[name].js',
       library: {
-        // name:'',
         type: 'commonjs',
       },
     },
+  },
+  esm: {
+    entry: {
+      index: './src/index.ts',
+      'asyncSleep/index': './src/asyncSleep/index.ts',
+      'lang/index': './src/lang/index.ts',
+      'service/index': './src/service/index.ts',
+      'Store/index': './src/Store/index.ts',
+    },
+    output: {
+      path: path.resolve(__dirname, 'esm'),
+      filename: '[name].js',
+      library: {
+        type: 'module',
+        export: 'default',
+      },
+    },
+  },
+  umd: {
+    entry: './src/index.ts',
+    output: {
+      path: path.resolve(__dirname, 'umd'),
+      filename: 'index.js',
+      library: {
+        type: 'umd',
+      },
+    },
+  },
+};
+
+export default function (env, argv) {
+  console.log('webpack.config.js arguments', env, argv);
+
+  const mode = argv.env.target as 'cjs' | 'umd' | 'esm';
+
+  const config: webpack.Configuration = {
+    devtool: 'nosources-source-map',
+    experiments: {
+      outputModule: mode === 'esm',
+    },
+
+    mode: argv.mode,
+    ...configMap[mode],
+
     externals: ['lodash', 'moment'],
     // devServer: {
     //   open: true,
