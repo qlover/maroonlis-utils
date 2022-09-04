@@ -1,11 +1,10 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "maroonlis-utils",
   "main": "lib/index.js",
   "typings": "types/index.d.ts",
   "files": [
-    "dist",
     "lib",
     "types"
   ],
@@ -15,10 +14,7 @@
   ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
-    "build:umd": "webpack --mode development --env target=umd",
-    "build:cjs": "webpack --mode development --env target=cjs",
-    "build:esm": "webpack --mode development --env target=esm",
-    "build": "npm run build:umd && npm run build:cjs && npm run build:esm",
+    "build": "webpack --mode development",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
