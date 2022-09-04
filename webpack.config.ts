@@ -58,7 +58,7 @@ export default function (env, argv) {
   const mode = argv.env.target as 'lib' | 'umd' | 'esm';
 
   const config: webpack.Configuration = {
-    devtool: 'source-map',
+    devtool: 'nosources-source-map',
     experiments: {
       outputModule: mode === 'esm',
     },
