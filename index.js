@@ -1,1 +1,3 @@
-module.exports = require('./src/index');
+const utils = require('./cjs/index');
+
+console.log(utils);

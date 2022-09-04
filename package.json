@@ -1,11 +1,10 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.18",
+  "version": "0.0.21",
   "description": "maroonlis-utils",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
+  "main": "esm/index.js",
   "browser": "umd/index.js",
-  "typings": "lib/index.d.ts",
+  "typings": "types/index.d.ts",
   "files": [
     "cjs",
     "esm",
@@ -21,7 +20,7 @@
     "build:cjs": "webpack --mode development --env target=cjs",
     "build:esm": "webpack --mode development --env target=esm",
     "build:umd": "webpack --mode development --env target=umd",
-    "build": "npm run build:cjs && npm run build:umd",
+    "build": "npm run build:cjs && npm run build:umd && npm rum build:esm",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },

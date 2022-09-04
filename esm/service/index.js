@@ -233,7 +233,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_lodash__;
 /******/ // Load entry module and return exports
 /******/ // This entry module is referenced by other modules so it can't be inlined
 /******/ var __webpack_exports__ = __webpack_require__("./src/service/index.ts");
-/******/ __webpack_exports__ = __webpack_exports__["default"];
 /******/ 
 
 //# sourceMappingURL=index.js.map

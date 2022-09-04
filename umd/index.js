@@ -127,6 +127,34 @@ exports["default"] = asyncSleep;
 
 /***/ }),
 
+/***/ "./src/index.ts":
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var asyncSleep_1 = __webpack_require__(/*! ./asyncSleep */ "./src/asyncSleep/index.ts");
+var lang = __webpack_require__(/*! ./lang */ "./src/lang/index.ts");
+var service_1 = __webpack_require__(/*! ./service */ "./src/service/index.ts");
+var Store_1 = __webpack_require__(/*! ./Store */ "./src/Store/index.ts");
+exports["default"] = __assign(__assign({}, lang), { asyncSleep: asyncSleep_1.default, service: service_1.default, Store: Store_1.default });
+
+
+/***/ }),
+
 /***/ "./src/lang/index.ts":
 /*!***************************!*\
   !*** ./src/lang/index.ts ***!
@@ -330,26 +358,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_lodash__;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-(() => {
-var exports = __webpack_exports__;
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Store = exports.service = exports.lang = exports.asyncSleep = void 0;
-var asyncSleep_1 = __webpack_require__(/*! ./asyncSleep */ "./src/asyncSleep/index.ts");
-Object.defineProperty(exports, "asyncSleep", ({ enumerable: true, get: function () { return asyncSleep_1.default; } }));
-exports.lang = __webpack_require__(/*! ./lang */ "./src/lang/index.ts");
-var service_1 = __webpack_require__(/*! ./service */ "./src/service/index.ts");
-Object.defineProperty(exports, "service", ({ enumerable: true, get: function () { return service_1.default; } }));
-var Store_1 = __webpack_require__(/*! ./Store */ "./src/Store/index.ts");
-Object.defineProperty(exports, "Store", ({ enumerable: true, get: function () { return Store_1.default; } }));
-
-})();
-
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
+/******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

@@ -57,7 +57,6 @@ exports.isEmptyPropsValue = isEmptyPropsValue;
 
 })();
 
-__webpack_exports__ = __webpack_exports__["default"];
 var __webpack_exports___esModule = __webpack_exports__.__esModule;
 var __webpack_exports__isEmptyPropsValue = __webpack_exports__.isEmptyPropsValue;
 var __webpack_exports__isNotEmptyArray = __webpack_exports__.isNotEmptyArray;

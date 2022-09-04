@@ -16,9 +16,11 @@ const configMap: Record<string, webpack.Configuration> = {
     output: {
       path: path.resolve(__dirname, 'cjs'),
       filename: '[name].js',
-      library: {
-        type: 'commonjs',
-      },
+      libraryTarget: 'commonjs',
+      // library: {
+      //   export: 'defualt',
+      //   type: 'commonjs',
+      // },
     },
   },
   esm: {
@@ -32,10 +34,11 @@ const configMap: Record<string, webpack.Configuration> = {
     output: {
       path: path.resolve(__dirname, 'esm'),
       filename: '[name].js',
-      library: {
-        type: 'module',
-        export: 'default',
-      },
+      libraryTarget: 'module',
+      // library: {
+      //   type: 'module',
+      //   export: 'default',
+      // },
     },
   },
   umd: {
@@ -43,9 +46,11 @@ const configMap: Record<string, webpack.Configuration> = {
     output: {
       path: path.resolve(__dirname, 'umd'),
       filename: 'index.js',
-      library: {
-        type: 'umd',
-      },
+      libraryTarget: 'umd',
+      // library: {
+      //   name: 'maroonlisUtils',
+      //   type: 'umd',
+      // },
     },
   },
 };
