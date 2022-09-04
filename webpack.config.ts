@@ -1,9 +1,8 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
-import * as packagejson from './package.json';
 // in case you run into any typescript error when configuring `devServer`
 // import 'webpack-dev-server';
-const { name } = packagejson;
+// const { name } = packagejson;
 
 // const configMap = {
 //   cjs: {
@@ -74,7 +73,7 @@ export default function (env, argv) {
     output: {
       path: path.resolve(__dirname, 'lib'),
       library: {
-        name,
+        // name:'',
         type: 'commonjs',
       },
     },
