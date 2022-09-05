@@ -1,12 +1,28 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5", // 要改成es5，不然babel转换es6的时候有些转换不了
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "sourceMap": false, // 是否生成sourceMap（用于浏览器调试）
     "noImplicitAny": false,
-    "noImplicitThis": false,
-    "skipLibCheck": true
-  }
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "declaration": true, // 是否生成声明文件
+    // "outDir": "lib", // 打包到的目录
+    "declarationDir": "lib", // 声明文件打包的位置
+    "declarationMap": false, // 是否生成声明文件map文件（便于调试）
+    "moduleResolution": "node",
+    "module": "CommonJS",
+    "resolveJsonModule": true,
+    "target": "es5", // 转化成的目标语言
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    "lib": ["dom", "es2015"],
+    "jsx": "react",
+    "allowJs": false
+  },
+  "include": ["src/**/*.ts"], // 要打包的文件
+  "exclude": ["node_modules", "*.ts", "*.test.ts"]
 }
