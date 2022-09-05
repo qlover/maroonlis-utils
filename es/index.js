@@ -1,2 +1,343 @@
-import{isNumber as e,cloneDeep as t,identity as r,isFunction as n}from"lodash";function o(e){return void 0===e&&(e=16),new Promise((function(t){return setTimeout(t,e)}))}function u(e){return null==e}var i=Object.freeze({__proto__:null,isNotEmptyArray:function(e){return!(!Array.isArray(e)||!e.length)},isSameNull:u,isNumberWithString:function(e){if("string"==typeof e){if(!e.length)return!1;var t=+e;return t==t&&"number"==typeof t}return"number"==typeof e},isEmptyPropsValue:function(e){return u(e)||""===e}});function c(e,t,r,n){return new(r||(r=Promise))((function(o,u){function i(e){try{a(n.next(e))}catch(e){u(e)}}function c(e){try{a(n.throw(e))}catch(e){u(e)}}function a(e){var t;e.done?o(e.value):(t=e.value,t instanceof r?t:new r((function(e){e(t)}))).then(i,c)}a((n=n.apply(e,t||[])).next())}))}function a(e,t){var r,n,o,u,i={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return u={next:c(0),throw:c(1),return:c(2)},"function"==typeof Symbol&&(u[Symbol.iterator]=function(){return this}),u;function c(u){return function(c){return function(u){if(r)throw new TypeError("Generator is already executing.");for(;i;)try{if(r=1,n&&(o=2&u[0]?n.return:u[0]?n.throw||((o=n.return)&&o.call(n),0):n.next)&&!(o=o.call(n,u[1])).done)return o;switch(n=0,o&&(u=[2&u[0],o.value]),u[0]){case 0:case 1:o=u;break;case 4:return i.label++,{value:u[1],done:!1};case 5:i.label++,n=u[1],u=[0];continue;case 7:u=i.ops.pop(),i.trys.pop();continue;default:if(!(o=i.trys,(o=o.length>0&&o[o.length-1])||6!==u[0]&&2!==u[0])){i=0;continue}if(3===u[0]&&(!o||u[1]>o[0]&&u[1]<o[3])){i.label=u[1];break}if(6===u[0]&&i.label<o[1]){i.label=o[1],o=u;break}if(o&&i.label<o[2]){i.label=o[2],i.ops.push(u);break}o[2]&&i.ops.pop(),i.trys.pop();continue}u=t.call(e,i)}catch(e){u=[6,e],n=0}finally{r=o=0}if(5&u[0])throw u[1];return{value:u[0]?u[1]:void 0,done:!0}}([u,c])}}}function l(){var n=r,i=r,l=r,s=r;return{useMocktpl:function(e){return s=e},useFilter:function(e){return l=e},useConfig:function(e){return n=e},useInstaner:function(e){return i=e},request:function(r){return c(this,void 0,void 0,(function(){var c,f,p,v,y;return a(this,(function(a){switch(a.label){case 0:return c=t(r),[4,n(c)];case 1:return a.sent(),f=c.delay,p=c.mock,v=c.filterResponse,e(f)?[4,o(f)]:[3,3];case 2:a.sent(),a.label=3;case 3:return u(p)?[4,i(c)]:[2,s(p)];case 4:return y=a.sent(),v?[4,l(y,c)]:[3,6];case 5:return[2,a.sent()];case 6:return[2,y]}}))}))}}}function s(e,t){"object"==typeof t?localStorage.setItem(e,JSON.stringify(t)):localStorage.setItem(e,t)}function f(e){var t=localStorage.getItem(e);try{return t&&JSON.parse(t)}catch(e){return t}}function p(e){localStorage.removeItem(e)}function v(e,t){var r=(null==t?void 0:t.set)&&n(null==t?void 0:t.set)?t.set:s,o=(null==t?void 0:t.get)&&n(null==t?void 0:t.get)?t.get:f,u=(null==t?void 0:t.remove)&&n(null==t?void 0:t.remove)?t.remove:p,i={set:function(t,o){if(n(r)){if(o){var u=i.get({});u&&"object"==typeof u||(u={}),u[o]=t,t=u}try{return r(e,t)}catch(e){return void console.log("store set Error",e)}}},remove:function(){if(n(u))return u(e)},get:function(t,r){if(n(o)){var u;try{u=o(e)||t}catch(e){console.error("Storage.get Error",e),u=u||t}return r&&u&&"object"==typeof u&&(u=u[r]),u||t}}};return i}export{v as Store,o as asyncSleep,l as createRequest,i as lang};
+import { isNumber, cloneDeep, identity, isFunction } from 'lodash';
+
+/**
+ * A "modern" sleep statement.
+ *
+ * @param ms The number of milliseconds to wait.
+ */
+function asyncSleep(ms) {
+    if (ms === void 0) { ms = 16; }
+    return new Promise(function (resolve) { return setTimeout(resolve, ms); });
+}
+
+/**
+ * 验证是否是个非空数组
+ * @param {any | undefined} value
+ * @returns {value is T[]}
+ */
+function isNotEmptyArray(value) {
+    return !!(Array.isArray(value) && value.length);
+}
+/**
+ *
+ * @param {*} value
+ * @returns {value is null | undefined}
+ */
+function isSameNull(value) {
+    return value == null;
+}
+/**
+ * 是否是一个数字，包括字符串数字
+ * @param {*} obj
+ * @returns {obj is number}
+ */
+function isNumberWithString(obj) {
+    if (typeof obj === 'string') {
+        if (!obj.length) {
+            return false;
+        }
+        var value = +obj;
+        // NaN 不等于自身
+        return value === value && typeof value === 'number';
+    }
+    return typeof obj === 'number';
+}
+/**
+ * 判断属性值是否是空
+ * 包含 `isSameNull` 结果和 `''` 字符
+ *
+ * @param {*} value
+ * @returns {value is undefined | null | ''}
+ */
+function isEmptyPropsValue(value) {
+    return isSameNull(value) || value === '';
+}
+
+var index = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  isNotEmptyArray: isNotEmptyArray,
+  isSameNull: isSameNull,
+  isNumberWithString: isNumberWithString,
+  isEmptyPropsValue: isEmptyPropsValue
+});
+
+function __awaiter(thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+}
+function __generator(thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+}
+
+function createRequest() {
+    var configer = identity;
+    var instancer = identity;
+    var filter = identity;
+    var mocker = identity;
+    var useConfig = function (func) { return (configer = func); };
+    var useInstaner = function (func) { return (instancer = func); };
+    var useMocktpl = function (func) { return (mocker = func); };
+    var useFilter = function (func) { return (filter = func); };
+    function request(config) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _config, delay, mock, filterResponse, _a, res;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _config = cloneDeep(config);
+                        return [4 /*yield*/, configer(_config)];
+                    case 1:
+                        _b.sent();
+                        delay = _config.delay, mock = _config.mock, filterResponse = _config.filterResponse;
+                        // delay
+                        _a = isNumber(delay);
+                        if (!_a) 
+                        // delay
+                        return [3 /*break*/, 3];
+                        return [4 /*yield*/, asyncSleep(delay)];
+                    case 2:
+                        _a = (_b.sent());
+                        _b.label = 3;
+                    case 3:
+                        // 2. mock tpl
+                        if (!isSameNull(mock)) {
+                            return [2 /*return*/, mocker(mock)];
+                        }
+                        return [4 /*yield*/, instancer(_config)];
+                    case 4:
+                        res = _b.sent();
+                        if (!filterResponse) return [3 /*break*/, 6];
+                        return [4 /*yield*/, filter(res, _config)];
+                    case 5: return [2 /*return*/, _b.sent()];
+                    case 6: return [2 /*return*/, res];
+                }
+            });
+        });
+    }
+    return {
+        useMocktpl: useMocktpl,
+        useFilter: useFilter,
+        useConfig: useConfig,
+        useInstaner: useInstaner,
+        request: request,
+    };
+}
+
+function defaultSet(key, value) {
+    if (typeof value === 'object') {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+    else {
+        localStorage.setItem(key, value);
+    }
+}
+function defaultGet(key) {
+    var value = localStorage.getItem(key);
+    try {
+        return value && JSON.parse(value);
+    }
+    catch (_a) {
+        return value;
+    }
+}
+function defaultRemove(key) {
+    localStorage.removeItem(key);
+}
+/**
+ *
+ * @param {string} key
+ * @param {StoreConfig} config
+ * @returns
+ */
+function Store(key, config) {
+    var sset = (config === null || config === void 0 ? void 0 : config.set) && isFunction(config === null || config === void 0 ? void 0 : config.set) ? config.set : defaultSet;
+    var sget = (config === null || config === void 0 ? void 0 : config.get) && isFunction(config === null || config === void 0 ? void 0 : config.get) ? config.get : defaultGet;
+    var sremove = (config === null || config === void 0 ? void 0 : config.remove) && isFunction(config === null || config === void 0 ? void 0 : config.remove)
+        ? config.remove
+        : defaultRemove;
+    var storeObj = {
+        set: function (value, valueKey) {
+            if (!isFunction(sset)) {
+                return;
+            }
+            if (valueKey) {
+                var oldValue = storeObj.get({});
+                if (!(oldValue && typeof oldValue === 'object')) {
+                    oldValue = {};
+                }
+                oldValue[valueKey] = value;
+                value = oldValue;
+            }
+            try {
+                // 可能触发 DOMException: The quota has been exceeded.
+                return sset(key, value);
+            }
+            catch (e) {
+                console.log('store set Error', e);
+                return;
+            }
+        },
+        remove: function () {
+            if (!isFunction(sremove)) {
+                return;
+            }
+            return sremove(key);
+        },
+        get: function (defaultValue, valueKey) {
+            if (!isFunction(sget)) {
+                return;
+            }
+            var value;
+            try {
+                // Uncaught SyntaxError 错误 可能出现解析错误
+                value = sget(key) || defaultValue;
+            }
+            catch (e) {
+                console.error('Storage.get Error', e);
+                value = value || defaultValue;
+            }
+            if (valueKey && value && typeof value === 'object') {
+                value = value[valueKey];
+            }
+            return value || defaultValue;
+        },
+    };
+    return storeObj;
+}
+
+export { Store, asyncSleep, createRequest, index as lang };
 //# sourceMappingURL=index.js.map

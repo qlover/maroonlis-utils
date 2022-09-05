@@ -2,7 +2,6 @@ import babel from '@rollup/plugin-babel';
 import resolve from '@rollup/plugin-node-resolve';
 import autoExternal from 'rollup-plugin-auto-external';
 import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
 
 /**
@@ -30,7 +29,7 @@ export default {
     typescript(),
     autoExternal(), // 自动 external
     babel({ babelHelpers: 'bundled', presets: ['@babel/preset-env'] }), // babel配置,编译es6
-    terser(),
+    // terser(),
     // bundleSize(),
   ],
 };
