@@ -1,16 +1,16 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "maroonlis-utils",
   "main": "umd/index.js",
   "module": "esm/index.js",
   "browser": "umd/index.js",
   "typings": "types/index.d.ts",
   "files": [
-    "cjs",
-    "esm",
+    "es",
+    "lib",
     "umd",
-    "types"
+    "lib"
   ],
   "keywords": [
     "utils",
