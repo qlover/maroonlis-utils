@@ -33,10 +33,12 @@ export type StoreConfig = {
  * @returns
  */
 export default function Store(key: string, config?: StoreConfig) {
-  const sset = config && isFunction(config?.set) ? config.set : defaultSet;
-  const sget = config && isFunction(config?.get) ? config.get : defaultGet;
+  const sset = config?.set && isFunction(config?.set) ? config.set : defaultSet;
+  const sget = config?.get && isFunction(config?.get) ? config.get : defaultGet;
   const sremove =
-    config && isFunction(config?.remove) ? config.remove : defaultRemove;
+    config?.remove && isFunction(config?.remove)
+      ? config.remove
+      : defaultRemove;
 
   const storeObj = {
     set(value: any, valueKey?: string) {

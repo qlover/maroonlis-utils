@@ -66,7 +66,6 @@ export default function createRequest<
     const _config = cloneDeep(config);
     await configer(_config);
 
-    // @ts-expect-error
     const { delay, mock, filterResponse } = _config;
 
     // delay
