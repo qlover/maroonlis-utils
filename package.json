@@ -21,7 +21,7 @@
     "build:umd": "rollup -c ./config/rollup.umd.js",
     "build:es": "rollup -c ./config/rollup.es.js",
     "build:lib": "npx tsc",
-    "build": "npm run build:lib && npm run build:umd && npm run build:es",
+    "build:dev": "npm run build:lib && npm run build:umd && npm run build:es && npm link",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
