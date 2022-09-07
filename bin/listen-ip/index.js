@@ -1,10 +1,16 @@
 import chalk from 'chalk';
+import { execSync } from 'child_process';
 import { truncateSync, writeFileSync } from 'fs';
 import moment from 'moment';
 import { networkInterfaces } from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import getNodeVersion from '../../lib/getNodeVersion/index.js';
+
+function getNodeVersion() {
+  const info = execSync('node -v');
+  return info.toString();
+}
+
 console.log('node:', chalk.blue(getNodeVersion()));
 
 const __filenameNew = fileURLToPath(import.meta.url);
