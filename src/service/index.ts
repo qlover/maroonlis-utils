@@ -46,11 +46,9 @@ type UseMockerType<D, R> = (func: MockerType<D, R>) => void;
 type FilterType<R, C> = (res: R, cfg: C) => PromiseLike<R>;
 type UseFilterType<R, C> = (func: FilterType<R, C>) => void;
 
-export default function createRequest<
-  E,
-  R = Response,
-  C = WithConfigType<E>
->() {
+export default function createRequest<E, R = Response, C = WithConfigType<E>>(
+  defCfg?: C
+) {
   let configer: ConfigerType<C> = identity;
   let instancer: InstancerType<C, R> = identity;
   let filter: FilterType<R, C> = identity;
@@ -63,7 +61,7 @@ export default function createRequest<
 
   async function request(config: C) {
     // 1. config
-    const _config = cloneDeep(config);
+    const _config = cloneDeep(defCfg ? { ...defCfg, ...config } : config);
     await configer(_config);
 
     const { delay, mock, filterResponse } = _config;
