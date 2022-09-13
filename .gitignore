@@ -40,3 +40,7 @@ next-env.d.ts
 
 *.log
 *.log.json
+
+ejs/
+es/
+umd/
