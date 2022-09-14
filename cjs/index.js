@@ -57,14 +57,6 @@ function isEmptyPropsValue(value) {
     return isSameNull(value) || value === '';
 }
 
-var index = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  isNotEmptyArray: isNotEmptyArray,
-  isSameNull: isSameNull,
-  isNumberWithString: isNumberWithString,
-  isEmptyPropsValue: isEmptyPropsValue
-});
-
 function __awaiter(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function (resolve) {
@@ -261,7 +253,7 @@ function createRequest() {
     };
 }
 
-function defaultSet(key, value) {
+function defaultSet$1(key, value) {
     if (typeof value === 'object') {
         localStorage.setItem(key, JSON.stringify(value));
     }
@@ -269,7 +261,7 @@ function defaultSet(key, value) {
         localStorage.setItem(key, value);
     }
 }
-function defaultGet(key) {
+function defaultGet$1(key) {
     var value = localStorage.getItem(key);
     try {
         return value && JSON.parse(value);
@@ -278,73 +270,197 @@ function defaultGet(key) {
         return value;
     }
 }
-function defaultRemove(key) {
+function defaultRemove$1(key) {
     localStorage.removeItem(key);
 }
 /**
- *
- * @param {string} key
+ * 存储
  * @param {StoreConfig} config
  * @returns
  */
-function Store(key, config) {
-    var sset = (config === null || config === void 0 ? void 0 : config.set) && lodash.isFunction(config === null || config === void 0 ? void 0 : config.set) ? config.set : defaultSet;
-    var sget = (config === null || config === void 0 ? void 0 : config.get) && lodash.isFunction(config === null || config === void 0 ? void 0 : config.get) ? config.get : defaultGet;
-    var sremove = (config === null || config === void 0 ? void 0 : config.remove) && lodash.isFunction(config === null || config === void 0 ? void 0 : config.remove)
-        ? config.remove
-        : defaultRemove;
-    var storeObj = {
-        set: function (value, valueKey) {
-            if (!lodash.isFunction(sset)) {
-                return;
-            }
-            if (valueKey) {
-                var oldValue = storeObj.get({});
-                if (!(oldValue && typeof oldValue === 'object')) {
-                    oldValue = {};
+function Store(config) {
+    var sset = (config === null || config === void 0 ? void 0 : config.set) || defaultSet$1;
+    var sget = (config === null || config === void 0 ? void 0 : config.get) || defaultGet$1;
+    var sremove = (config === null || config === void 0 ? void 0 : config.remove) || defaultRemove$1;
+    return function _store(key) {
+        var storeObj = {
+            set: function (value, valueKey) {
+                if (!lodash.isFunction(sset)) {
+                    return;
                 }
-                oldValue[valueKey] = value;
-                value = oldValue;
-            }
-            try {
-                // 可能触发 DOMException: The quota has been exceeded.
-                return sset(key, value);
-            }
-            catch (e) {
-                console.log('store set Error', e);
-                return;
-            }
-        },
-        remove: function () {
-            if (!lodash.isFunction(sremove)) {
-                return;
-            }
-            return sremove(key);
-        },
-        get: function (defaultValue, valueKey) {
-            if (!lodash.isFunction(sget)) {
-                return;
-            }
-            var value;
-            try {
-                // Uncaught SyntaxError 错误 可能出现解析错误
-                value = sget(key) || defaultValue;
-            }
-            catch (e) {
-                console.error('Storage.get Error', e);
-                value = value || defaultValue;
-            }
-            if (valueKey && value && typeof value === 'object') {
-                value = value[valueKey];
-            }
-            return value || defaultValue;
-        },
+                if (valueKey) {
+                    var oldValue = storeObj.get({});
+                    if (!(oldValue && typeof oldValue === 'object')) {
+                        oldValue = {};
+                    }
+                    oldValue[valueKey] = value;
+                    value = oldValue;
+                }
+                try {
+                    // 可能触发 DOMException: The quota has been exceeded.
+                    return sset(key, value);
+                }
+                catch (e) {
+                    console.log('store set Error', e);
+                    return;
+                }
+            },
+            remove: function () {
+                if (!lodash.isFunction(sremove)) {
+                    return;
+                }
+                return sremove(key);
+            },
+            get: function (defaultValue, valueKey) {
+                if (!lodash.isFunction(sget)) {
+                    return;
+                }
+                var value;
+                try {
+                    // Uncaught SyntaxError 错误 可能出现解析错误
+                    value = sget(key) || defaultValue;
+                }
+                catch (e) {
+                    console.error('Storage.get Error', e);
+                    value = value || defaultValue;
+                }
+                if (valueKey && value && typeof value === 'object') {
+                    value = value[valueKey];
+                }
+                return value || defaultValue;
+            },
+        };
+        return storeObj;
     };
-    return storeObj;
+}
+
+function defaultSet(key, value) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (typeof value === 'object') {
+                localStorage.setItem(key, JSON.stringify(value));
+            }
+            else {
+                localStorage.setItem(key, value);
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+function defaultGet(key) {
+    return __awaiter(this, void 0, void 0, function () {
+        var value;
+        return __generator(this, function (_a) {
+            value = localStorage.getItem(key);
+            try {
+                return [2 /*return*/, value && JSON.parse(value)];
+            }
+            catch (_b) {
+                return [2 /*return*/, value];
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+function defaultRemove(key) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            localStorage.removeItem(key);
+            return [2 /*return*/];
+        });
+    });
+}
+/**
+ * 支持 async/await 存储
+ * @param {StoreAsyncConfig} config
+ * @returns
+ */
+function StoreAsync(config) {
+    var sset = (config === null || config === void 0 ? void 0 : config.set) || defaultSet;
+    var sget = (config === null || config === void 0 ? void 0 : config.get) || defaultGet;
+    var sremove = (config === null || config === void 0 ? void 0 : config.remove) || defaultRemove;
+    return function _StoreAsync(key) {
+        var storeObj = {
+            set: function (value, valueKey) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var oldValue;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!lodash.isFunction(sset)) {
+                                    return [2 /*return*/];
+                                }
+                                if (!valueKey) return [3 /*break*/, 2];
+                                return [4 /*yield*/, storeObj.get({})];
+                            case 1:
+                                oldValue = _a.sent();
+                                if (!(oldValue && typeof oldValue === 'object')) {
+                                    oldValue = {};
+                                }
+                                oldValue[valueKey] = value;
+                                value = oldValue;
+                                _a.label = 2;
+                            case 2:
+                                try {
+                                    // 可能触发 DOMException: The quota has been exceeded.
+                                    return [2 /*return*/, sset(key, value)];
+                                }
+                                catch (e) {
+                                    console.log('store set Error', e);
+                                    return [2 /*return*/];
+                                }
+                                return [2 /*return*/];
+                        }
+                    });
+                });
+            },
+            remove: function () {
+                return __awaiter(this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!lodash.isFunction(sremove)) {
+                                    return [2 /*return*/];
+                                }
+                                return [4 /*yield*/, sremove(key)];
+                            case 1: return [2 /*return*/, _a.sent()];
+                        }
+                    });
+                });
+            },
+            get: function (defaultValue, valueKey) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var value;
+                    return __generator(this, function (_a) {
+                        if (!lodash.isFunction(sget)) {
+                            return [2 /*return*/];
+                        }
+                        try {
+                            // Uncaught SyntaxError 错误 可能出现解析错误
+                            value = sget(key) || defaultValue;
+                        }
+                        catch (e) {
+                            console.error('Storage.get Error', e);
+                            value = value || defaultValue;
+                        }
+                        if (valueKey && value && typeof value === 'object') {
+                            value = value[valueKey];
+                        }
+                        return [2 /*return*/, value || defaultValue];
+                    });
+                });
+            },
+        };
+        return storeObj;
+    };
 }
 
 exports.Store = Store;
+exports.StoreAsync = StoreAsync;
 exports.asyncSleep = asyncSleep;
 exports.createRequest = createRequest;
-exports.lang = index;
+exports.isEmptyPropsValue = isEmptyPropsValue;
+exports.isNotEmptyArray = isNotEmptyArray;
+exports.isNumberWithString = isNumberWithString;
+exports.isSameNull = isSameNull;
 //# sourceMappingURL=index.js.map

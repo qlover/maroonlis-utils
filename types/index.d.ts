@@ -32,19 +32,12 @@ declare function isNumberWithString(obj: any): obj is number;
  */
 declare function isEmptyPropsValue(value: any): value is undefined | null | '';
 
-declare const index_isNotEmptyArray: typeof isNotEmptyArray;
-declare const index_isSameNull: typeof isSameNull;
-declare const index_isNumberWithString: typeof isNumberWithString;
-declare const index_isEmptyPropsValue: typeof isEmptyPropsValue;
-declare namespace index {
-  export {
-    index_isNotEmptyArray as isNotEmptyArray,
-    index_isSameNull as isSameNull,
-    index_isNumberWithString as isNumberWithString,
-    index_isEmptyPropsValue as isEmptyPropsValue,
-  };
-}
-
+declare type ApiRespone = {
+    code?: number;
+    data?: any;
+    msg?: string;
+    [key: string]: any;
+};
 declare type BaseConfig = {
     /**
      * 延迟
@@ -78,24 +71,42 @@ declare function createRequest<E, R = Response, C = WithConfigType<E>>(): {
     request: (config: C) => Promise<R>;
 };
 
-declare function defaultSet(key: string, value: any): void;
-declare function defaultGet(key: string): any;
-declare function defaultRemove(key: string): void;
+declare function defaultSet$1(key: string, value: any): void;
+declare function defaultGet$1(key: string): any;
+declare function defaultRemove$1(key: string): void;
 declare type StoreConfig = {
-    set?: typeof defaultSet;
-    get?: typeof defaultGet;
-    remove?: typeof defaultRemove;
+    set?: typeof defaultSet$1;
+    get?: typeof defaultGet$1;
+    remove?: typeof defaultRemove$1;
 };
 /**
- *
- * @param {string} key
+ * 存储
  * @param {StoreConfig} config
  * @returns
  */
-declare function Store(key: string, config?: StoreConfig): {
+declare function Store(config?: StoreConfig): (key: string) => {
     set(value: any, valueKey?: string): void;
     remove(): void;
     get(defaultValue?: any, valueKey?: any): any;
 };
 
-export { Store, asyncSleep, createRequest, index as lang };
+declare type StoreAsyncConfig = {
+    set?: typeof defaultSet;
+    get?: typeof defaultGet;
+    remove?: typeof defaultRemove;
+};
+declare function defaultSet(key: string, value: any): Promise<void>;
+declare function defaultGet(key: string): Promise<any>;
+declare function defaultRemove(key: string): Promise<void>;
+/**
+ * 支持 async/await 存储
+ * @param {StoreAsyncConfig} config
+ * @returns
+ */
+declare function StoreAsync(config?: StoreAsyncConfig): (key: string) => {
+    set(value: any, valueKey?: string): Promise<void>;
+    remove(): Promise<void>;
+    get(defaultValue?: any, valueKey?: any): Promise<any>;
+};
+
+export { ApiRespone, BaseConfig, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isNotEmptyArray, isNumberWithString, isSameNull };
