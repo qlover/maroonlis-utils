@@ -18,13 +18,7 @@
   ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
-    "build:umd": "rollup -c ./config/rollup.umd.js",
-    "build:es": "rollup -c ./config/rollup.es.js",
-    "build:lib": "npx tsc",
-    "build:dev": "npm run build:lib && npm run build:umd && npm run build:es && npm link",
-    "build": "rollup -c --mode development",
-    "watch": "webpack --watch",
-    "serve": "webpack serve"
+    "build": "rollup -c --mode development"
   },
   "repository": {
     "type": "git",
