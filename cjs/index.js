@@ -57,6 +57,21 @@ function isEmptyPropsValue(value) {
     return isSameNull(value) || value === '';
 }
 
+var _assign = function __assign() {
+  _assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return _assign.apply(this, arguments);
+};
 function __awaiter(thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function (resolve) {
@@ -199,7 +214,7 @@ function __generator(thisArg, body) {
   }
 }
 
-function createRequest() {
+function createRequest(defCfg) {
     var configer = lodash.identity;
     var instancer = lodash.identity;
     var filter = lodash.identity;
@@ -214,7 +229,7 @@ function createRequest() {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        _config = lodash.cloneDeep(config);
+                        _config = lodash.cloneDeep(defCfg ? _assign(_assign({}, defCfg), config) : config);
                         return [4 /*yield*/, configer(_config)];
                     case 1:
                         _b.sent();

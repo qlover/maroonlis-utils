@@ -63,7 +63,7 @@ declare type MockerType<D, R> = (data: D) => R;
 declare type UseMockerType<D, R> = (func: MockerType<D, R>) => void;
 declare type FilterType<R, C> = (res: R, cfg: C) => PromiseLike<R>;
 declare type UseFilterType<R, C> = (func: FilterType<R, C>) => void;
-declare function createRequest<E, R = Response, C = WithConfigType<E>>(): {
+declare function createRequest<E, R = Response, C = WithConfigType<E>>(defCfg?: C): {
     useMocktpl: UseMockerType<any, R>;
     useFilter: UseFilterType<R, C>;
     useConfig: UseConfigerType<C>;
