@@ -18,7 +18,8 @@
   ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
-    "build": "rollup -c --mode development"
+    "build": "rollup -c --mode development",
+    "build:prod": "rollup -c --mode production"
   },
   "repository": {
     "type": "git",

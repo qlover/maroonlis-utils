@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import autoExternal from 'rollup-plugin-auto-external';
 import commonjs from 'rollup-plugin-commonjs';
 import dts from 'rollup-plugin-dts';
+import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
 import * as pkg from './package.json';
 const input = 'src/index.ts';
@@ -11,7 +12,7 @@ const input = 'src/index.ts';
  * @type {() => import('rollup').RollupOptions}
  */
 function build(target, mode) {
-  const mixed = mode !== 'development';
+  const mixed = false;
   return {
     input,
     output: {
