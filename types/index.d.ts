@@ -6,6 +6,16 @@
 declare function asyncSleep(ms?: number): Promise<unknown>;
 
 /**
+ * 创建一个可以跳转 url 的对象, 可绕过 window.open 浏览的拦截
+ * @returns
+ */
+declare function createOpenUrl(): {
+    a: HTMLAnchorElement;
+    open: (url: string) => Promise<void>;
+    close: () => void;
+};
+
+/**
  * 验证是否是个非空数组
  * @param {any | undefined} value
  * @returns {value is T[]}
@@ -109,4 +119,4 @@ declare function StoreAsync(config?: StoreAsyncConfig): (key: string) => {
     get(defaultValue?: any, valueKey?: any): Promise<any>;
 };
 
-export { ApiRespone, BaseConfig, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isNotEmptyArray, isNumberWithString, isSameNull };
+export { ApiRespone, BaseConfig, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createOpenUrl, createRequest, isEmptyPropsValue, isNotEmptyArray, isNumberWithString, isSameNull };
