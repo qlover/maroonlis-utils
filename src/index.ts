@@ -1,4 +1,6 @@
 export { default as asyncSleep } from './asyncSleep';
+export * from './bom';
+export * from './generalID';
 export * from './lang';
 export { default as createRequest } from './service';
 export type { ApiRespone, BaseConfig } from './service';
