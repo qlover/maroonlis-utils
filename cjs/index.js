@@ -14,6 +14,49 @@ function asyncSleep(ms) {
     return new Promise(function (resolve) { return setTimeout(resolve, ms); });
 }
 
+/**
+ * 验证是否是个非空数组
+ * @param {any | undefined} value
+ * @returns {value is T[]}
+ */
+function isNotEmptyArray(value) {
+    return !!(Array.isArray(value) && value.length);
+}
+/**
+ *
+ * @param {*} value
+ * @returns {value is null | undefined}
+ */
+function isSameNull(value) {
+    return value == null;
+}
+/**
+ * 是否是一个数字，包括字符串数字
+ * @param {*} obj
+ * @returns {obj is number}
+ */
+function isNumberWithString(obj) {
+    if (typeof obj === 'string') {
+        if (!obj.length) {
+            return false;
+        }
+        var value = +obj;
+        // NaN 不等于自身
+        return value === value && typeof value === 'number';
+    }
+    return typeof obj === 'number';
+}
+/**
+ * 判断属性值是否是空
+ * 包含 `isSameNull` 结果和 `''` 字符
+ *
+ * @param {*} value
+ * @returns {value is undefined | null | ''}
+ */
+function isEmptyPropsValue(value) {
+    return isSameNull(value) || value === '';
+}
+
 var _assign = function __assign() {
   _assign = Object.assign || function __assign(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -169,55 +212,6 @@ function __generator(thisArg, body) {
       done: true
     };
   }
-}
-
-function generalID(randomLength) {
-    return Number(Math.random()
-        .toString()
-        .substring(2, randomLength ? randomLength + 2 : void 0) + Date.now()).toString(36);
-}
-
-/**
- * 验证是否是个非空数组
- * @param {any | undefined} value
- * @returns {value is T[]}
- */
-function isNotEmptyArray(value) {
-    return !!(Array.isArray(value) && value.length);
-}
-/**
- *
- * @param {*} value
- * @returns {value is null | undefined}
- */
-function isSameNull(value) {
-    return value == null;
-}
-/**
- * 是否是一个数字，包括字符串数字
- * @param {*} obj
- * @returns {obj is number}
- */
-function isNumberWithString(obj) {
-    if (typeof obj === 'string') {
-        if (!obj.length) {
-            return false;
-        }
-        var value = +obj;
-        // NaN 不等于自身
-        return value === value && typeof value === 'number';
-    }
-    return typeof obj === 'number';
-}
-/**
- * 判断属性值是否是空
- * 包含 `isSameNull` 结果和 `''` 字符
- *
- * @param {*} value
- * @returns {value is undefined | null | ''}
- */
-function isEmptyPropsValue(value) {
-    return isSameNull(value) || value === '';
 }
 
 function createRequest(defCfg) {
@@ -476,47 +470,9 @@ function StoreAsync(config) {
     };
 }
 
-/**
- * 创建一个可以跳转 url 的对象, 可绕过 window.open 浏览的拦截
- * @returns
- */
-function createOpenUrl() {
-    var id = generalID();
-    var a = document.createElement('a');
-    a.id = id;
-    a.target = '_blank';
-    a.href = '#';
-    a.setAttribute('style', 'display:none');
-    document.body.appendChild(a);
-    function open(url) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        a.href = url;
-                        return [4 /*yield*/, asyncSleep(1000)];
-                    case 1:
-                        _a.sent();
-                        a.click();
-                        close();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    }
-    function close() {
-        var last = document.getElementById(id);
-        if (last) {
-            document.body.removeChild(last);
-        }
-    }
-    return { a: a, open: open, close: close };
-}
-
 exports.Store = Store;
 exports.StoreAsync = StoreAsync;
 exports.asyncSleep = asyncSleep;
-exports.createOpenUrl = createOpenUrl;
 exports.createRequest = createRequest;
 exports.isEmptyPropsValue = isEmptyPropsValue;
 exports.isNotEmptyArray = isNotEmptyArray;
