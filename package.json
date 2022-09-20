@@ -1,9 +1,9 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "maroonlis-utils",
   "main": "umd/index.js",
-  "module": "esm/index.js",
+  "module": "es/index.js",
   "browser": "umd/index.js",
   "typings": "types/index.d.ts",
   "files": [
