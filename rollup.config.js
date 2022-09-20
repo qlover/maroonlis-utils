@@ -5,7 +5,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import dts from 'rollup-plugin-dts';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
-import * as pkg from './package.json';
 const input = 'src/index.ts';
 
 /**
@@ -18,8 +17,9 @@ function build(target, mode) {
     output: {
       format: target,
       dir: target,
-      name: target === 'umd' ? pkg.name : void 0,
+      name: target === 'umd' ? 'maroonlisUtils' : void 0,
       sourcemap: !mixed,
+      minifyInternalExports: target !== 'umd',
     },
     plugins: [
       resolve(),

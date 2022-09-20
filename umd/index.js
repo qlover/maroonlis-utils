@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('lodash')) :
   typeof define === 'function' && define.amd ? define(['exports', 'lodash'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["maroonlis-utils"] = {}, global.lodash));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.maroonlisUtils = {}, global.lodash));
 })(this, (function (exports, lodash) { 'use strict';
 
   /**
