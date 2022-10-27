@@ -17,7 +17,7 @@ export function isSameNull(value: any): value is null | undefined {
 }
 
 /**
- * 是否是一个数字，包括字符串数字
+ * 是否是一个数字，包括字符串数字, 不包括 NaN
  * @param {*} obj
  * @returns {obj is number}
  */
@@ -33,7 +33,8 @@ export function isNumberWithString(obj: any): obj is number {
     return value === value && typeof value === 'number';
   }
 
-  return typeof obj === 'number';
+  // NaN 不等于自身
+  return typeof obj === 'number' && obj === obj;
 }
 
 /**
@@ -45,4 +46,34 @@ export function isNumberWithString(obj: any): obj is number {
  */
 export function isEmptyPropsValue(value: any): value is undefined | null | '' {
   return isSameNull(value) || value === '';
+}
+
+/**
+ * 判断是否以某个字符串开头
+ * @param str
+ * @param start
+ */
+export function isWhetherStar(str: string, start: string) {
+  return str.substring(0, start.length) === start;
+}
+
+const toString = Object.prototype.toString;
+
+/**
+ * 判断两个值类型是否相等
+ * @param obj1
+ * @param obj2
+ * @returns
+ */
+export function isEqType(obj1: any, obj2: any): obj2 is typeof obj1 {
+  return toString.call(obj1) === toString.call(obj2);
+}
+
+/**
+ * 是否是 html 字符串
+ * @param html
+ * @returns
+ */
+export function isHTMLString(html: any): html is string {
+  return /<[^>]+>/g.test(html);
 }

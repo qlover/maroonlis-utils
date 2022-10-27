@@ -1,6 +1,6 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "maroonlis-utils",
   "main": "umd/index.js",
   "module": "es/index.js",
@@ -18,8 +18,8 @@
   ],
   "scripts": {
     "listen:ip": "node ./bin/listen-ip/index.js",
-    "build": "rollup -c --mode development",
-    "build:prod": "rollup -c --mode production"
+    "build": "rollup -c",
+    "build:prod": "rollup -c"
   },
   "repository": {
     "type": "git",

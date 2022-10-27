@@ -18,7 +18,7 @@ declare function isNotEmptyArray<T = any>(value: any | undefined): value is T[];
  */
 declare function isSameNull(value: any): value is null | undefined;
 /**
- * 是否是一个数字，包括字符串数字
+ * 是否是一个数字，包括字符串数字, 不包括 NaN
  * @param {*} obj
  * @returns {obj is number}
  */
@@ -31,6 +31,25 @@ declare function isNumberWithString(obj: any): obj is number;
  * @returns {value is undefined | null | ''}
  */
 declare function isEmptyPropsValue(value: any): value is undefined | null | '';
+/**
+ * 判断是否以某个字符串开头
+ * @param str
+ * @param start
+ */
+declare function isWhetherStar(str: string, start: string): boolean;
+/**
+ * 判断两个值类型是否相等
+ * @param obj1
+ * @param obj2
+ * @returns
+ */
+declare function isEqType(obj1: any, obj2: any): obj2 is typeof obj1;
+/**
+ * 是否是 html 字符串
+ * @param html
+ * @returns
+ */
+declare function isHTMLString(html: any): html is string;
 
 declare type ApiRespone = {
     code?: number;
@@ -109,4 +128,11 @@ declare function StoreAsync(config?: StoreAsyncConfig): (key: string) => {
     get(defaultValue?: any, valueKey?: any): Promise<any>;
 };
 
-export { ApiRespone, BaseConfig, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isNotEmptyArray, isNumberWithString, isSameNull };
+declare namespace MaroonLisUtils {
+    /**
+     * 获取类型所有值, 相对于 Keyof
+     */
+    type ValueOf<T> = T[keyof T];
+}
+
+export { ApiRespone, BaseConfig, MaroonLisUtils, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isEqType, isHTMLString, isNotEmptyArray, isNumberWithString, isSameNull, isWhetherStar };

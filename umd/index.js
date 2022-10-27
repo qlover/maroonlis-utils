@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('lodash')) :
   typeof define === 'function' && define.amd ? define(['exports', 'lodash'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.maroonlisUtils = {}, global.lodash));
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global["maroonlis-utils"] = {}, global.lodash));
 })(this, (function (exports, lodash) { 'use strict';
 
   /**
@@ -31,7 +31,7 @@
       return value == null;
   }
   /**
-   * 是否是一个数字，包括字符串数字
+   * 是否是一个数字，包括字符串数字, 不包括 NaN
    * @param {*} obj
    * @returns {obj is number}
    */
@@ -44,7 +44,8 @@
           // NaN 不等于自身
           return value === value && typeof value === 'number';
       }
-      return typeof obj === 'number';
+      // NaN 不等于自身
+      return typeof obj === 'number' && obj === obj;
   }
   /**
    * 判断属性值是否是空
@@ -55,6 +56,32 @@
    */
   function isEmptyPropsValue(value) {
       return isSameNull(value) || value === '';
+  }
+  /**
+   * 判断是否以某个字符串开头
+   * @param str
+   * @param start
+   */
+  function isWhetherStar(str, start) {
+      return str.substring(0, start.length) === start;
+  }
+  var toString = Object.prototype.toString;
+  /**
+   * 判断两个值类型是否相等
+   * @param obj1
+   * @param obj2
+   * @returns
+   */
+  function isEqType(obj1, obj2) {
+      return toString.call(obj1) === toString.call(obj2);
+  }
+  /**
+   * 是否是 html 字符串
+   * @param html
+   * @returns
+   */
+  function isHTMLString(html) {
+      return /<[^>]+>/g.test(html);
   }
 
   var _assign = function __assign() {
@@ -475,9 +502,12 @@
   exports.asyncSleep = asyncSleep;
   exports.createRequest = createRequest;
   exports.isEmptyPropsValue = isEmptyPropsValue;
+  exports.isEqType = isEqType;
+  exports.isHTMLString = isHTMLString;
   exports.isNotEmptyArray = isNotEmptyArray;
   exports.isNumberWithString = isNumberWithString;
   exports.isSameNull = isSameNull;
+  exports.isWhetherStar = isWhetherStar;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
