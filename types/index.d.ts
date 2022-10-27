@@ -128,11 +128,11 @@ declare function StoreAsync(config?: StoreAsyncConfig): (key: string) => {
     get(defaultValue?: any, valueKey?: any): Promise<any>;
 };
 
-declare namespace MaroonLisUtils {
+declare namespace MaroonLisUtilsNS {
     /**
      * 获取类型所有值, 相对于 Keyof
      */
     type ValueOf<T> = T[keyof T];
 }
 
-export { ApiRespone, BaseConfig, MaroonLisUtils, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isEqType, isHTMLString, isNotEmptyArray, isNumberWithString, isSameNull, isWhetherStar };
+export { ApiRespone, BaseConfig, MaroonLisUtilsNS, Store, StoreAsync, StoreAsyncConfig, StoreConfig, asyncSleep, createRequest, isEmptyPropsValue, isEqType, isHTMLString, isNotEmptyArray, isNumberWithString, isSameNull, isWhetherStar };

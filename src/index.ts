@@ -8,7 +8,7 @@ export type { StoreConfig } from './Store';
 export { default as StoreAsync } from './Store/StoreAsync';
 export type { StoreAsyncConfig } from './Store/StoreAsync';
 
-export declare namespace MaroonLisUtils {
+export declare namespace MaroonLisUtilsNS {
   /**
    * 获取类型所有值, 相对于 Keyof
    */
