@@ -14,18 +14,18 @@
   "sideEffects": "false",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simonwong/fly-helper.git"
+    "url": "git+https://gitee.com/qlover/js-utils.git"
   },
   "author": "Simon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/simonwong/fly-helper/issues"
+    "url": "https://gitee.com/qlover/js-utils.git/issues"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://github.com/simonwong/fly-helper#readme",
+  "homepage": "https://gitee.com/qlover/js-utils.git#readme",
   "scripts": {
     "build": "gulp build",
     "api": "api-extractor run",
