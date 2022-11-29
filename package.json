@@ -1,6 +1,6 @@
 {
   "name": "maroonlis-utils",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "lisUtils",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
