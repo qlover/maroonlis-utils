@@ -4,6 +4,7 @@
   "description": "lisUtils",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
+  "umd": "lib/index.umd.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
@@ -16,7 +17,7 @@
     "type": "git",
     "url": "git+https://gitee.com/qlover/js-utils.git"
   },
-  "author": "Simon",
+  "author": "MaroonLis",
   "license": "MIT",
   "bugs": {
     "url": "https://gitee.com/qlover/js-utils.git/issues"
