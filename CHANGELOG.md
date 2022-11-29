@@ -1,5 +1,18 @@
 # 工具库更新日志
 
+## [0.0.34](https://gitee.com/qlover/js-utils/compare/v0.0.33...v0.0.34) (2022-11-29)
+
+
+### Bug Fixes
+
+* index export service ([0ea5bea](https://gitee.com/qlover/js-utils/commit/0ea5beac7eb337ac7740f6fbf877bc5933de6eaf))
+* index export service ([d4fb78b](https://gitee.com/qlover/js-utils/commit/d4fb78b4bb9a25a77900ca2fbc0a01b85dfe99b5))
+* index export service ([3828b69](https://gitee.com/qlover/js-utils/commit/3828b6949c150f9e16765839b7f3c6191be4fe66))
+* license ([4bf43ae](https://gitee.com/qlover/js-utils/commit/4bf43aec911efa6807cd3b4a7b8cf6a31a07f3cb))
+* package info ([fd488fd](https://gitee.com/qlover/js-utils/commit/fd488fdf3f80954681f2be3fb0ff12fcf49eae0a))
+
+
+
 ## [0.0.33](https://gitee.com/qlover/js-utils/compare/v0.0.32...v0.0.33) (2022-11-29)
 
 
