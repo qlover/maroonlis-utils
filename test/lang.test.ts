@@ -34,10 +34,10 @@ describe('type:', () => {
     test(' "" => false ', () => {
       assert.strictEqual(isHTMLString(''), false)
     })
-    test(' "<div>asdf" => false ', () => {
+    test(' "<div>asdf" => true ', () => {
       assert.strictEqual(isHTMLString('<div>asdf'), true)
     })
-    test(' "<div>asdf</div>" => false ', () => {
+    test(' "<div>asdf</div>" => true ', () => {
       assert.strictEqual(isHTMLString('<div>asdf</div>'), true)
     })
   })
