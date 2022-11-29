@@ -6,9 +6,9 @@ import { isSameNull } from '../lang'
 /**
  * @beta
  */
-export type ApiRespone = {
+export type ApiRespone<Data = any> = {
   code?: number
-  data?: any
+  data?: Data
   msg?: string
   [key: string]: any
 }
