@@ -1,40 +1,46 @@
+/* eslint-disable no-self-compare */
+const { toString } = Object.prototype
+
 /**
  * 验证是否是个非空数组
  * @param {any | undefined} value
  * @returns {value is T[]}
+ * @beta
  */
 export function isNotEmptyArray<T = any>(value: any | undefined): value is T[] {
-  return !!(Array.isArray(value) && value.length);
+  return !!(Array.isArray(value) && value.length)
 }
 
 /**
  *
  * @param {*} value
  * @returns {value is null | undefined}
+ * @beta
  */
 export function isSameNull(value: any): value is null | undefined {
-  return value == null;
+  return value == null
 }
 
 /**
  * 是否是一个数字，包括字符串数字, 不包括 NaN
  * @param {*} obj
  * @returns {obj is number}
+ * @beta
  */
 export function isNumberWithString(obj: any): obj is number {
   if (typeof obj === 'string') {
     if (!obj.length) {
-      return false;
+      return false
     }
 
-    const value = +obj;
+    const value = +obj
 
     // NaN 不等于自身
-    return value === value && typeof value === 'number';
+    return value === value && typeof value === 'number'
   }
 
   // NaN 不等于自身
-  return typeof obj === 'number' && obj === obj;
+  return typeof obj === 'number' && obj === obj
 }
 
 /**
@@ -43,9 +49,10 @@ export function isNumberWithString(obj: any): obj is number {
  *
  * @param {*} value
  * @returns {value is undefined | null | ''}
+ * @beta
  */
 export function isEmptyPropsValue(value: any): value is undefined | null | '' {
-  return isSameNull(value) || value === '';
+  return isSameNull(value) || value === ''
 }
 
 /**
@@ -54,26 +61,26 @@ export function isEmptyPropsValue(value: any): value is undefined | null | '' {
  * @param start
  */
 export function isWhetherStar(str: string, start: string) {
-  return str.substring(0, start.length) === start;
+  return str.substring(0, start.length) === start
 }
-
-const toString = Object.prototype.toString;
 
 /**
  * 判断两个值类型是否相等
  * @param obj1
  * @param obj2
  * @returns
+ * @beta
  */
 export function isEqType(obj1: any, obj2: any): obj2 is typeof obj1 {
-  return toString.call(obj1) === toString.call(obj2);
+  return toString.call(obj1) === toString.call(obj2)
 }
 
 /**
  * 是否是 html 字符串
  * @param html
  * @returns
+ * @beta
  */
 export function isHTMLString(html: any): html is string {
-  return /<[^>]+>/g.test(html);
+  return /<[^>]+>/g.test(html)
 }

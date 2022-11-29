@@ -1,8 +1,14 @@
 /**
- * A "modern" sleep statement.
+ * 同步等待
  *
- * @param ms The number of milliseconds to wait.
+ * @param ms
+ * @returns
+ * @beta
  */
 export default function asyncSleep(ms: number = 16) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return new Promise(resolve => {
+    const timer = setTimeout(() => {
+      resolve(timer)
+    }, ms)
+  })
 }

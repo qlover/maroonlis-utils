@@ -1,86 +1,107 @@
-import { cloneDeep, identity, isNumber } from 'lodash';
-import asyncSleep from '../asyncSleep';
-import { isSameNull } from '../lang';
+import { cloneDeep, identity, isNumber } from 'lodash'
+import asyncSleep from '../asyncSleep'
 
+import { isSameNull } from '../lang'
+
+/**
+ * @beta
+ */
 export type ApiRespone = {
-  code?: number;
-  data?: any;
-  msg?: string;
-  [key: string]: any;
-};
+  code?: number
+  data?: any
+  msg?: string
+  [key: string]: any
+}
 
+/**
+ * @beta
+ */
 export type BaseConfig = {
   /**
    * 延迟
    */
-  delay?: number;
+  delay?: number
 
   /**
    * 拦截响应
    */
-  filterResponse?: boolean;
+  filterResponse?: boolean
 
   /**
    * 假数据
    */
-  mock?: any;
-  [key: string]: any;
-};
-type PromiseLike<A> = A | Promise<A>;
+  mock?: any
+  [key: string]: any
+}
+type PromiseLike<A> = A | Promise<A>
 
-type WithConfigType<E> = BaseConfig & E;
+type WithConfigType<E> = BaseConfig & E
 
 // instance
-type InstancerType<C, R> = (cfg: C) => PromiseLike<R>;
-type UseInstancerType<C, R> = (func: InstancerType<C, R>) => void;
+type InstancerType<C, R> = (cfg: C) => PromiseLike<R>
+type UseInstancerType<C, R> = (func: InstancerType<C, R>) => void
 
 // configer
-type ConfigerType<C> = (cfg: C) => PromiseLike<C>;
-type UseConfigerType<C> = (func: ConfigerType<C>) => void;
+type ConfigerType<C> = (cfg: C) => PromiseLike<C>
+type UseConfigerType<C> = (func: ConfigerType<C>) => void
 
 // mocker
-type MockerType<D, R> = (data: D) => R;
-type UseMockerType<D, R> = (func: MockerType<D, R>) => void;
+type MockerType<D, R> = (data: D) => R
+type UseMockerType<D, R> = (func: MockerType<D, R>) => void
 
 // filter
-type FilterType<R, C> = (res: R, cfg: C) => PromiseLike<R>;
-type UseFilterType<R, C> = (func: FilterType<R, C>) => void;
+type FilterType<R, C> = (res: R, cfg: C) => PromiseLike<R>
+type UseFilterType<R, C> = (func: FilterType<R, C>) => void
 
+/**
+ * @beta
+ */
 export default function createRequest<E, R = Response, C = WithConfigType<E>>(
-  defCfg?: C
+  defCfg?: C,
 ) {
-  let configer: ConfigerType<C> = identity;
-  let instancer: InstancerType<C, R> = identity;
-  let filter: FilterType<R, C> = identity;
-  let mocker: MockerType<any, R> = identity;
+  let configer: ConfigerType<C> = identity
+  let instancer: InstancerType<C, R> = identity
+  let filter: FilterType<R, C> = identity
+  let mocker: MockerType<any, R> = identity
 
-  const useConfig: UseConfigerType<C> = (func) => (configer = func);
-  const useInstaner: UseInstancerType<C, R> = (func) => (instancer = func);
-  const useMocktpl: UseMockerType<any, R> = (func) => (mocker = func);
-  const useFilter: UseFilterType<R, C> = (func) => (filter = func);
+  const useConfig: UseConfigerType<C> = func => {
+    configer = func
+  }
+  const useInstaner: UseInstancerType<C, R> = func => {
+    instancer = func
+  }
+  const useMocktpl: UseMockerType<any, R> = func => {
+    mocker = func
+  }
+  const useFilter: UseFilterType<R, C> = func => {
+    filter = func
+  }
 
   async function request(config: C) {
     // 1. config
-    const _config = cloneDeep(defCfg ? { ...defCfg, ...config } : config);
-    await configer(_config);
+    const iconfig = cloneDeep({ ...defCfg, ...config })
 
-    const { delay, mock, filterResponse } = _config;
+    await configer(iconfig)
+
+    const { delay, mock, filterResponse } = iconfig as WithConfigType<any>
 
     // delay
-    isNumber(delay) && (await asyncSleep(delay));
+    if (isNumber(delay)) {
+      await asyncSleep(delay)
+    }
 
     // 2. mock tpl
     if (!isSameNull(mock)) {
-      return mocker(mock);
+      return mocker(mock)
     }
 
     // 3. filter response
-    const res = await instancer(_config);
+    const res = await instancer(iconfig)
 
     if (filterResponse) {
-      return await filter(res, _config);
+      return filter(res, iconfig)
     }
-    return res;
+    return res
   }
 
   return {
@@ -89,5 +110,5 @@ export default function createRequest<E, R = Response, C = WithConfigType<E>>(
     useConfig,
     useInstaner,
     request,
-  };
+  }
 }
